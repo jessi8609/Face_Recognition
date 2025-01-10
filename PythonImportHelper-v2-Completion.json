@@ -1,0 +1,189 @@
+[
+    {
+        "label": "AutoModel",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "AutoFeatureExtractor",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "AutoModel",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "AutoFeatureExtractor",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageDraw",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "ImageFont",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "cv2",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "cv2",
+        "description": "cv2",
+        "detail": "cv2",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "cosine",
+        "importPath": "scipy.spatial.distance",
+        "description": "scipy.spatial.distance",
+        "isExtraImport": true,
+        "detail": "scipy.spatial.distance",
+        "documentation": {}
+    },
+    {
+        "label": "cosine",
+        "importPath": "scipy.spatial.distance",
+        "description": "scipy.spatial.distance",
+        "isExtraImport": true,
+        "detail": "scipy.spatial.distance",
+        "documentation": {}
+    },
+    {
+        "label": "DeepFace",
+        "importPath": "deepface",
+        "description": "deepface",
+        "isExtraImport": true,
+        "detail": "deepface",
+        "documentation": {}
+    },
+    {
+        "label": "load_model",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def load_model():\n    \"\"\"\n    Hugging Face modelini yuklaydi va qaytaradi.\n    \"\"\"\n    model_name = \"jayanta/vit-base-patch16-224-in21k-face-recognition\"\n    print(\"Model yuklanmoqda...\")\n    model = AutoModel.from_pretrained(model_name)\n    feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)\n    print(\"Model muvaffaqiyatli yuklandi.\")\n    return model, feature_extractor",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_face_embedding",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_face_embedding(model, feature_extractor, image):\n    \"\"\"\n    Tasvirdan yuz embeddinglarini oladi.\n    :param model: Yuklangan Hugging Face modeli\n    :param feature_extractor: Yuklangan extractor\n    :param image: Tasvir (numpy array)\n    :return: Yuz embeddinglari (vektorlar)\n    \"\"\"\n    try:\n        pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))  # OpenCV formatdan PIL formatga o'tkazish",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_similarity",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def calculate_similarity(embedding1, embedding2):\n    \"\"\"\n    Ikki embedding orasidagi o'xshashlikni hisoblaydi.\n    :param embedding1: Birinchi embedding\n    :param embedding2: Ikkinchi embedding\n    :return: O'xshashlik darajasi\n    \"\"\"\n    similarity = 1 - cosine(embedding1, embedding2)\n    return similarity\n# === 4. Kameradan real vaqt rejimida yuzlarni tanib olish ===",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "detect_and_compare_faces",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def detect_and_compare_faces(model, feature_extractor, reference_embeddings):\n    \"\"\"\n    Kameradan yuzlarni o'qib, referens embedding bilan solishtiradi.\n    :param model: Hugging Face modeli\n    :param feature_extractor: Feature extractor\n    :param reference_embeddings: Referens tasvir embeddinglari\n    \"\"\"\n    cap = cv2.VideoCapture(0)  # Kamerani ochish\n    print(\"Kameradan yuzlarni qidirishni boshlash. ESC tugmasini bosing chiqish uchun.\")\n    natija_chiqarilgan = False  # Natijalarni bir marta chiqarish uchun flag",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "load_model",
+        "kind": 2,
+        "importPath": "main2",
+        "description": "main2",
+        "peekOfCode": "def load_model():\n    model_name = \"jayanta/vit-base-patch16-224-in21k-face-recognition\"\n    model = AutoModel.from_pretrained(model_name)\n    feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)\n    return model, feature_extractor\n# === 2. Yuz embeddinglarini olish ===\ndef get_face_embedding(model, feature_extractor, image):\n    try:\n        pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))\n        inputs = feature_extractor(images=pil_image, return_tensors=\"pt\")",
+        "detail": "main2",
+        "documentation": {}
+    },
+    {
+        "label": "get_face_embedding",
+        "kind": 2,
+        "importPath": "main2",
+        "description": "main2",
+        "peekOfCode": "def get_face_embedding(model, feature_extractor, image):\n    try:\n        pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))\n        inputs = feature_extractor(images=pil_image, return_tensors=\"pt\")\n        outputs = model(**inputs)\n        embeddings = outputs.last_hidden_state.mean(dim=1).squeeze().detach().numpy()\n        return embeddings\n    except Exception as e:\n        print(f\"Xatolik yuz berdi: {e}\")\n        return None",
+        "detail": "main2",
+        "documentation": {}
+    },
+    {
+        "label": "detect_gender",
+        "kind": 2,
+        "importPath": "main2",
+        "description": "main2",
+        "peekOfCode": "def detect_gender(image):\n    try:\n        analysis = DeepFace.analyze(img_path=image, actions=['gender'])\n        return analysis['gender']\n    except Exception as e:\n        print(f\"Jinsni aniqlashda xatolik yuz berdi: {e}\")\n        return \"Unknown\"\n# === 4. Kameradan real vaqt rejimida yuzlarni aniqlash ===\ndef detect_and_compare_faces(model, feature_extractor, reference_embeddings, reference_names, font_path):\n    cap = cv2.VideoCapture(0)",
+        "detail": "main2",
+        "documentation": {}
+    },
+    {
+        "label": "detect_and_compare_faces",
+        "kind": 2,
+        "importPath": "main2",
+        "description": "main2",
+        "peekOfCode": "def detect_and_compare_faces(model, feature_extractor, reference_embeddings, reference_names, font_path):\n    cap = cv2.VideoCapture(0)\n    while True:\n        ret, frame = cap.read()\n        if not ret:\n            break\n        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)\n        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + \"haarcascade_frontalface_default.xml\")\n        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=7, minSize=(100, 100))\n        for (x, y, w, h) in faces:",
+        "detail": "main2",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_similarity",
+        "kind": 2,
+        "importPath": "main2",
+        "description": "main2",
+        "peekOfCode": "def calculate_similarity(embedding1, embedding2):\n    return 1 - cosine(embedding1, embedding2)\n# === 6. Asosiy kodni ishga tushirish ===\nif __name__ == \"__main__\":\n    model, feature_extractor = load_model()\n    reference_images = [\n        r\"C:\\Users\\13\\Desktop\\face_recog\\Camera Roll\\WIN_20250110_15_56_44_Pro.jpg\",\n        r\"C:\\Users\\13\\Desktop\\face_recog\\Camera Roll\\WIN_20250110_15_57_58_Pro.jpg\",\n        r\"C:\\Users\\13\\Desktop\\face_recog\\Camera Roll\\WIN_20250110_15_58_15_Pro.jpg\",\n        r\"C:\\Users\\13\\Desktop\\face_recog\\Camera Roll\\WIN_20250110_15_58_29_Pro.jpg\",",
+        "detail": "main2",
+        "documentation": {}
+    }
+]
